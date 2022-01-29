@@ -1,39 +1,39 @@
 import localForageTools from "../components/localForageTools";
-import {FetchMethode} from "../models/responsData";
+import {apiInputRequired, apiInputOptional} from "../models/responsData";
+import {toast} from "react-toastify";
+
 
 export const baseUrl = `http://localhost:3000`
 export const siteUrl = `https://site-address.com`
 
-export async function getToken() : Promise<string | null>{
+export async function getToken(): Promise<string | null> {
     return await localForageTools.GetItem("token");
 }
 
-export async function customApi(url: string,
-                                method: FetchMethode,
-                                body: any,
-                                token: boolean = false ,
-                                formData: boolean = false
-) {
+export async function customApi(required: Required<apiInputRequired>, optional: Partial<apiInputOptional>) {
     const init: RequestInit = {}
-    const headers : HeadersInit = {}
-    if (token) headers['token'] = await getToken() ?? ""
-    if (method !== "GET") init.body = body
-    if(!formData) {
-        headers['Content-Type'] = "application/json"
-    }else {
+    const headers: HeadersInit = {}
+    if (optional.token) headers['token'] = await getToken() ?? ""
+    if (optional.method !== "GET") init.body = optional.body
+    if (optional.formData) {
+        headers['Content-Type'] = "multipart/form-data"
+    } else {
         headers['Content-Type'] = "application/json"
     }
     init.headers = headers
-    const request = await fetch(url, init)
+    init.method = optional.method ?? "GET"
+    const request = await fetch(required.url, init)
     const response = request.json();
-    response.then((res)=>{
-        if(res.result){
+    return response.then((res) => {
+        if (res.result) {
+            toast(optional.successMes, optional.messageConfig = {type:"success"})
             return res
         } else {
+            toast(optional.errorMes, optional.messageConfig = {type: "error"})
             return res
         }
     })
-        .catch((err)=>{
+        .catch((err) => {
             console.log(err)
             return err
         })
