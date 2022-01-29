@@ -9,17 +9,23 @@ export declare type ServerToClientEvents = {
 
 export declare type FetchMethode = "GET" | "POST" | "PUT" | "DELETE" | "UPDATE";
 
-export declare type apiInputRequired = {
+export declare type ApiInputRequired = {
     url: string,
 }
 
-export declare type apiInputOptional = {
+export declare type ApiInputOptional = {
     body: any,
     token: boolean,
     formData?: boolean,
     method?: FetchMethode,
     successMes?: ToastContent,
     errorMes?: ToastContent,
-    messageConfig?: ToastOptions<{}>
+    messageConfig?: ToastOptions<{}>,
+    unexpectedMess?: ToastContent
+}
+
+export declare type ForageTools = {
+    name: string,
+    input: any
 }
 

@@ -1,17 +1,14 @@
 import React from "react";
-import {customApi} from "../../apis";
+import {customApi, getToken} from "../../apis";
 
 const Layout = () => {
 
     function TestApi(){
-        const TestApiReq = customApi(
-            {url: "https://api.barberssite.com/shop"},
-            {})
+        const TestApiReq = customApi({url: "https://api.barberssite.com/shop"}, {})
         TestApiReq.then((val)=>{
             console.log(val)
         })
     }
-
 
     return(
         <>
