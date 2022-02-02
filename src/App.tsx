@@ -7,7 +7,10 @@ function App() {
 
     return (
         <div>
-            <PageRoot.Layout/>
+            <PageRoot.Layout>
+                <h1>Hello World</h1>
+                Lo
+            </PageRoot.Layout>
             <ToastContainer/>
         </div>
     );

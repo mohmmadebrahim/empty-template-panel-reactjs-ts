@@ -25,7 +25,7 @@ export async function customApi(required: Required<ApiInputRequired>, optional: 
         toast( "Internet Connection Lost", {type: "error"})
         setTimeout(()=>{
             alert("Internet Connection Lost")
-            return location.reload();
+            return window.location.reload();
         },1000)
     }
     const request = await fetch(required.url, init)

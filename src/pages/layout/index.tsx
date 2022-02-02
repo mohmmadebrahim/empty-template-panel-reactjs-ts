@@ -1,7 +1,7 @@
-import React from "react";
+import React, {ReactChildren} from "react";
 import {customApi, getToken} from "../../apis";
 
-const Layout = () => {
+const Layout :({children}: { children: any }) => JSX.Element = ({children}) => {
 
     function TestApi(){
         const TestApiReq = customApi({url: "https://api.barberssite.com/shop"}, {})
@@ -12,6 +12,7 @@ const Layout = () => {
 
     return(
         <>
+            {children}
             <button onClick={()=>{TestApi()}}> Get</button>
         </>
     )
